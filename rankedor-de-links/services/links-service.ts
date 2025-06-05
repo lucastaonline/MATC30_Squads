@@ -83,7 +83,23 @@ class LinksService {
         throw new Error('Not implemented');
     }
     calculateScalability(link: RankedLink): number {
-        throw new Error('Not implemented');
+        console.log(`Simulating scalability for: ${link.name} (${link.url})`);
+
+        let score = 2.5;
+
+        if (link.url.includes('google.com') || link.url.includes('amazon.com')) {
+            console.log(`Identified as major platform. Assigned high scalability.`);
+            score += 2.5;
+        }
+        if (link.url.includes('test') || link.url.includes('dev')) {
+            console.log(`Identified as test/dev environment. Assigned medium scalability.`);
+            score -= 0.5;
+        }
+        if (link.url.startsWith('http://')) {
+            console.log(`Using HTTP instead of HTTPS. Assigned lower scalability.`);
+            score -= 2;
+        }
+        return score;
     }
     calculateCustomization(link: RankedLink): number {
         throw new Error('Not implemented');
