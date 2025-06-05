@@ -18,3 +18,7 @@ FEAT, (descrição do que foi feito)
 
 Se for fix:
 FIX, (descrição do que foi feito)
+
+---
+
+Links estão mockados em serviço LinksService.
