@@ -1,3 +1,4 @@
-export default function LinkDetail() {
+
+  export default function LinkDetail() {
     return <div>Teste!</div>;
 }
