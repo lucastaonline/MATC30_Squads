@@ -85,7 +85,7 @@ class LinksService {
     calculateScalability(link: RankedLink): number {
         console.log(`Simulating scalability for: ${link.name} (${link.url})`);
 
-        let score = 2.5;
+        let score = 2;
 
         if (link.url.includes('google.com') || link.url.includes('amazon.com')) {
             console.log(`Identified as major platform. Assigned high scalability.`);
