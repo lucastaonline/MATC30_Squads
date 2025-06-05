@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ranqueador de Links</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    .paid { color: red; }
+    .free { color: green; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+    input, select { margin-right: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Ranking de Links</h1>
+
+  <input type="text" id="searchInput" placeholder="Buscar nome" />
+  <select id="paymentFilter">
+    <option value="all">Todos</option>
+    <option value="free">Gratuito</option>
+    <option value="paid">Pago</option>
+  </select>
+  <input type="number" id="minSpeed" placeholder="Velocidade mínima (ms)" />
+  <input type="number" id="maxSpeed" placeholder="Velocidade máxima (ms)" />
+
+  <table id="rankingTable">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Link</th>
+        <th>Velocidade</th>
+        <th>Tipo</th>
+        <th>Notas</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script type="module" src="/rankedor-de-links/pag_table/"></script>
+</body>
+</html>
