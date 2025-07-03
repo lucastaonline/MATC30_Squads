@@ -1,4 +1,4 @@
-# MATC30_Squad_Front
+# MATC30 Squads
 
 Squad para desenvolvimento de frontend de projeto em sala
 
