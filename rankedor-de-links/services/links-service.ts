@@ -70,8 +70,12 @@ class LinksService {
     calculateAccessibility(link: RankedLink): number {
         throw new Error('Not implemented');
     }
-    calculateResponsiveness(link: RankedLink): number {
-        throw new Error('Not implemented');
+    calculateResponsiveness(link: RankedLink):
+            function gerarNumeroAleatorio() {
+        // Gera um número aleatório entre 1 e 5
+          const numero = Math.floor(Math.random() * 5) + 1;
+          console.log(`O número gerado é: ${numero}`);
+          return numero;
     }
     calculateReliability(link: RankedLink): number {
         throw new Error('Not implemented');
