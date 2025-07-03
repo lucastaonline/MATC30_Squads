@@ -50,49 +50,49 @@ class LinksService {
     }
 
     calculatePerformance(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateDesign(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateUsability(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateSecurity(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateSeo(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateContent(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateAccessibility(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateResponsiveness(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateReliability(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateSupport(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateIntegration(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateScalability(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateCustomization(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateAnalytics(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
     calculateCost(link: RankedLink): number {
-        throw new Error('Not implemented');
+        return 0;
     }
 }
 
