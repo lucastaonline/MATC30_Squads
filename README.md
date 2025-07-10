@@ -5,19 +5,16 @@ Este documento descreve o processo de desenvolvimento e o padrão de commits ado
 ## Processo de Desenvolvimento
 
 1. **Criação da Branch:**
-   - Crie uma nova branch a partir da branch `/dev`.
+   - Crie uma nova branch a partir da branch `/main`.
    - Se for uma nova feature, use o prefixo `/feat`.
    - Se for um fix, use o prefixo `/fix`.
 
 2. **Abertura de Pull Request (PR):**
-   - Após realizar as modificações, abra um Pull Request (PR) para a branch `/dev`.
+   - Após realizar as modificações, abra um Pull Request (PR) para a branch `/main`.
    - Outros membros do time validarão e revisarão o PR.
 
 3. **Merge no PR:**
-   - Após a validação e aprovação do PR, faça o merge da branch para a branch `/dev`.
-
-4. **Subida para Main:**
-   - Após a conclusão de todos os itens validados na branch `/dev`, faça o merge da `/dev` para a `/main`.
+   - Após a validação e aprovação do PR, faça o merge da branch para a branch `/main`.
 
 ## Padrão de Commits
 
