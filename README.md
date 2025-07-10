@@ -1,6 +1,6 @@
 # MATC30 Squads - Frontend Development Process
 
-Este documento descreve o processo de desenvolvimento e o padrão de commits adotados no projeto de frontend em sala.
+Este documento descreve o processo de desenvolvimento e o padrão de commits adotados no projeto de sala.
 
 ## Processo de Desenvolvimento
 
