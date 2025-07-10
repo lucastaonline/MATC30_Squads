@@ -1,24 +1,30 @@
-# MATC30 Squads
+# MATC30 Squads - Frontend Development Process
 
-Squad para desenvolvimento de frontend de projeto em sala
+Este documento descreve o processo de desenvolvimento e o padrão de commits adotados no projeto de frontend em sala.
 
-Processo de desenvolvimento:
+## Processo de Desenvolvimento
 
-Cria branch /feat ou /fix a partir da /dev.
-Abre pull request para /dev, outros validam e aprovam.
-Merge no PR.
+1. **Criação da Branch:**
+   - Crie uma nova branch a partir da branch `/dev`.
+   - Se for uma nova feature, use o prefixo `/feat`.
+   - Se for um fix, use o prefixo `/fix`.
 
-Após validação dos itens sobe da /dev pra /main.
+2. **Abertura de Pull Request (PR):**
+   - Após realizar as modificações, abra um Pull Request (PR) para a branch `/dev`.
+   - Outros membros do time validarão e revisarão o PR.
 
-Padrão de commits:
+3. **Merge no PR:**
+   - Após a validação e aprovação do PR, faça o merge da branch para a branch `/dev`.
 
-Se for feature:
+4. **Subida para Main:**
+   - Após a conclusão de todos os itens validados na branch `/dev`, faça o merge da `/dev` para a `/main`.
 
-FEAT, (descrição do que foi feito)
+## Padrão de Commits
 
-Se for fix:
-FIX, (descrição do que foi feito)
-
----
-
-Links estão mockados em serviço LinksService.
+- **Para Features (novas funcionalidades):**
+  - **Prefixo:** `FEAT`
+  - **Exemplo:** `FEAT: Adicionar tela de login`
+  
+- **Para Fixes (correções de bugs):**
+  - **Prefixo:** `FIX`
+  - **Exemplo:** `FIX: Corrigir erro no botão de envio de formulário`
