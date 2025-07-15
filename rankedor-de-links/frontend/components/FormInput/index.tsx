@@ -1,3 +1,4 @@
+import React from 'react';
 
 const campos = [
   { name: 'name', label: 'Nome', type: 'text' },
