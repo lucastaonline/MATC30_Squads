@@ -63,6 +63,11 @@ export default function RootLayout({
                                         About
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <NavigationMenuLink href="/form">
+                                        Form
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
                     </header>
@@ -129,6 +134,22 @@ export default function RootLayout({
                             rel="noopener noreferrer"
                         >
                             BrunoFCastro
+                        </a>
+                        <a
+                            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+                            href="https://github.com/arnaldoliro"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Arnaldo Liro
+                        </a>
+                        <a
+                            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+                            href="https://github.com/Snorlaxch"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Yuri Chagas
                         </a>
                     </footer>
                 </div>
