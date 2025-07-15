@@ -63,6 +63,11 @@ export default function RootLayout({
                                         About
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <NavigationMenuLink href="/form">
+                                        Form
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
                     </header>
