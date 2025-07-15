@@ -6,6 +6,6 @@ module.exports = {
   },
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'babel-jest',
+    '^.+\\.(ts|tsx)$': ['babel-jest', { configFile: './jest.babel.config.js' }],
   },
 };
