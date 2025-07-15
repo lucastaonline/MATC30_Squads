@@ -130,6 +130,22 @@ export default function RootLayout({
                         >
                             BrunoFCastro
                         </a>
+                        <a
+                            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+                            href="https://github.com/arnaldoliro"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Arnaldo Liro
+                        </a>
+                        <a
+                            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+                            href="https://github.com/Snorlaxch"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Yuri Chagas
+                        </a>
                     </footer>
                 </div>
             </body>
