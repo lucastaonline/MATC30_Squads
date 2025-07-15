@@ -8,8 +8,6 @@ class LinkService:
     def avaliar_link(url: str, tentativas=3) -> dict:
         criteria = {
             "performance": 0,
-            "latency": 0,
-            "throughput": 0,
             "timeouts": 0,
             "consistency": 0,
             "security": 0,
@@ -38,7 +36,6 @@ class LinkService:
             except requests.Timeout:
                 timeouts += 1
             except requests.RequestException:
-                
                 timeouts += 1
 
         # Performance: média dos tempos (quanto menor, melhor)
@@ -51,14 +48,9 @@ class LinkService:
             else:
                 criteria["performance"] = round(10 * (1.0 - (avg_time - 0.1) / 0.9), 2)
 
-            # Latency (TTFB): usando headers se possível, senão igual performance
-            
-            criteria["latency"] = criteria["performance"]
-
             # Consistência
             if len(tempos) > 1:
                 desv = statistics.stdev(tempos)
-                # Escala: desvio 0 = 10, desvio 1s+ = 0
                 if desv >= 1.0:
                     criteria["consistency"] = 0
                 else:
@@ -66,32 +58,22 @@ class LinkService:
             else:
                 criteria["consistency"] = 10
 
-            # Throughput: tamanho médio da resposta / tempo médio 
-            avg_size = sum(tamanhos) / len(tamanhos) if tamanhos else 0
-            throughput = avg_size / avg_time if avg_time > 0 else 0
-           
-            kb_per_s = throughput / 1024
-            if kb_per_s >= 100:  # 100KB/s ou mais é nota máxima
-                criteria["throughput"] = 10
-            else:
-                criteria["throughput"] = round(10 * (kb_per_s / 100), 2)
-
             # Response size (normalizada)
-            if avg_size > 1024*1024:  # >1MB
-                criteria["response_size"] = 5  # muito grande, penaliza um pouco
-            elif avg_size < 100:  # muito pequeno, suspeito
+            avg_size = sum(tamanhos) / len(tamanhos) if tamanhos else 0
+            if avg_size > 1024 * 1024:
+                criteria["response_size"] = 5
+            elif avg_size < 100:
                 criteria["response_size"] = 2
             else:
                 criteria["response_size"] = 10
 
-        # Timeouts: penaliza quem falha mais
+        # Timeouts
         criteria["timeouts"] = max(0, 10 - (timeouts * (10 / tentativas)))
 
         if responses:
-            # Pega o último response válido para os outros critérios
             response = responses[-1]
 
-            # Segurança: HTTPS + headers de segurança
+            # Segurança
             security_score = 0
             if scheme == 'https':
                 security_score += 5
@@ -104,7 +86,7 @@ class LinkService:
                     security_score += 1
             criteria["security"] = min(security_score, 10)
 
-            # Confiabilidade (status code)
+            # Confiabilidade
             status = response.status_code
             if status == 200:
                 criteria["reliability"] = 10
@@ -138,7 +120,7 @@ class LinkService:
             except:
                 criteria["usability"] = 0
 
-            # Headers: CORS, Cache-Control, etc
+            # Headers
             headers = response.headers
             header_score = 0
             if 'Access-Control-Allow-Origin' in headers:
@@ -149,7 +131,7 @@ class LinkService:
                 header_score += 2
             criteria["headers_quality"] = min(header_score, 10)
 
-            # Rate Limit Headers
+            # Rate Limit
             rate_headers = ['X-RateLimit-Limit', 'X-RateLimit-Remaining', 'Retry-After']
             rate_score = 0
             for h in rate_headers:
@@ -158,7 +140,6 @@ class LinkService:
             criteria["rate_limit"] = min(rate_score, 10)
 
         else:
-            # Não houve respostas válidas
             criteria["security"] = 0
             criteria["reliability"] = 0
             criteria["content"] = 0
