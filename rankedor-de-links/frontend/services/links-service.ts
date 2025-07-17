@@ -94,6 +94,8 @@ class LinksService {
     calculateCost(link: RankedLink): number {
         return 0;
     }
+    calculateQuality(link: RankedLink): number {
+        return 0;
+    }
 }
-
 export { LinksService };
