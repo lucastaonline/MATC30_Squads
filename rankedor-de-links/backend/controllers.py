@@ -1,10 +1,12 @@
 import json
 from urllib.parse import urlparse
 from service import LinkService
-
+from pathlib import Path
 
 class RankingController:
-    def __init__(self, filepath='links.json'):
+    def __init__(self):
+        filepath = Path(__file__).parent.parent / 'frontend' / 'links.json'
+        
         self.filepath = filepath
         self.service = LinkService()
 
@@ -17,19 +19,22 @@ class RankingController:
 
     def avaliar_links(self, links):
         resultados = []
-        for url in links:
-            aval = self.service.avaliar_link(url)
-            name = urlparse(url).netloc
+        for link_obj in links:
+            url_string = link_obj['url']  
+            aval = self.service.avaliar_link(url_string) 
+            name = urlparse(url_string).netloc
             resultados.append({
                 "name": name,
-                "url": url,
+                "url": url_string,
                 "criteria": aval['criteria'],
                 "rating": aval['rating']
             })
         return resultados
 
-    def ordenar_e_rankear(self, resultados):
-        resultados.sort(key=lambda x: x['rating'], reverse=True)
+    def ordenar_e_rankear(self, resultados, order='DESC'):
+        reverse_order = (order == 'DESC')
+        resultados.sort(key=lambda x: x['rating'], reverse=reverse_order)
+        
         for i, item in enumerate(resultados, start=1):
             item['rank'] = i
         return resultados
@@ -43,16 +48,9 @@ class RankingController:
                 status = "DEGRADED"
         return status
 
-    def processar(self):
+    def processar(self, order='DESC'):
         links, erro = self.carregar_links()
         if erro:
             return None, f"Falha ao ler {self.filepath}: {erro}"
 
         resultados = self.avaliar_links(links)
-        resultados = self.ordenar_e_rankear(resultados)
-        status = self.definir_status(resultados)
-
-        return {
-            "status": status,
-            "data": resultados
-        }, None
