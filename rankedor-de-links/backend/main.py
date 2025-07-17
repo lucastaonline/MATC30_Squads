@@ -1,9 +1,10 @@
 from flask import Flask, redirect
-from api import RankingAPI
+from api import RankingController
 
 app = Flask(__name__)
 
-app.add_url_rule('/ranking', view_func=RankingAPI.as_view('ranking_api'))
+app.add_url_rule('/ranking', view_func=RankingController.as_view('ranking_controller'))
+
 
 # Rota raiz redireciona para /ranking
 @app.route('/')
