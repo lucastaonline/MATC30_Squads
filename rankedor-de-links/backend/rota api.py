@@ -5,7 +5,7 @@ from flask import jsonify
 from controllers import RankingController
 
 
-# --- Classe Auxiliar Interna para Desempate ---
+# --- Classe auxiliar para desempate por tempo de resposta ---
 class _TieBreakerService:
     @staticmethod
     def get_elapsed_time(url: str) -> float:
@@ -17,7 +17,7 @@ class _TieBreakerService:
             return float('inf')
 
 
-# --- API ---
+# --- API que retorna a melhor API, com critério de desempate por tempo ---
 class TopApisAPI(MethodView):
     def get(self):
         controller = RankingController()
@@ -28,7 +28,7 @@ class TopApisAPI(MethodView):
 
         apis = resultado.get("data", [])
         if not apis:
-            return jsonify({}), 204
+            return '', 204 
 
         maior_rating = apis[0]['rating']
         finalistas = [api for api in apis if api['rating'] == maior_rating]
@@ -44,8 +44,9 @@ class TopApisAPI(MethodView):
             if tempo_atual < menor_tempo:
                 menor_tempo = tempo_atual
                 vencedora_final = api
-        
+
         if vencedora_final is None:
             vencedora_final = finalistas[0]
 
         return jsonify(vencedora_final), 200
+
