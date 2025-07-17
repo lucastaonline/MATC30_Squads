@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import CarrosselPage from './CarrosselPage';
+import userEvent from '@testing-library/user-event';
 
 jest.mock('@/services/links-service', () => ({
     LinksService: jest.fn().mockImplementation(() => ({
@@ -48,7 +49,7 @@ jest.mock('@/services/links-service', () => ({
 }));
 
 
-describe('CarrosselPage', () => {
+describe('page', () => {
     it('renderiza a mensagem de carregamento inicialmente', () => {
         render(<CarrosselPage />);
         expect(screen.getByText('Carregando...')).toBeInTheDocument();
@@ -59,5 +60,21 @@ describe('CarrosselPage', () => {
         expect(await screen.findByText('Exemplo 2')).toBeInTheDocument();
         expect(await screen.findByText('Exemplo 3')).toBeInTheDocument();
     });
+    it('altera o card central ao clicar em outro card', async () => {
+        render(<CarrosselPage />);
+
+        // Aguarda os cards renderizarem
+        const card1 = await screen.findByText('Exemplo 1');
+        const card2 = await screen.findByText('Exemplo 2');
+
+        // Clique no card "Exemplo 2"
+        userEvent.click(card2);
+
+        // Agora, o card "Exemplo 2" deve estar com destaque
+        expect(await screen.findByText('Exemplo 2')).toBeInTheDocument();
+    });
+
 
 });
+
+
