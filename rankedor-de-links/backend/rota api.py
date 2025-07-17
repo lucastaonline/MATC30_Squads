@@ -1,8 +1,9 @@
+from flask.views import MethodView
 import time
 import requests
 from flask import jsonify
-from flask.views import MethodView
 from controllers import RankingController
+
 
 # --- Classe Auxiliar Interna para Desempate ---
 class _TieBreakerService:
@@ -15,34 +16,31 @@ class _TieBreakerService:
         except requests.RequestException:
             return float('inf')
 
+
 # --- API ---
 class TopApisAPI(MethodView):
-    
     def get(self):
         controller = RankingController()
         resultado, erro = controller.processar()
 
         if erro:
-            return jsonify({"erro": f"Erro no controller: {erro}"}), 500
+            return jsonify({"erro": str(erro)}), 500
 
         apis = resultado.get("data", [])
         if not apis:
-            return '', 204  # Resposta No Content
+            return jsonify({}), 204
 
-        
         maior_rating = apis[0]['rating']
-        
         finalistas = [api for api in apis if api['rating'] == maior_rating]
 
         if len(finalistas) == 1:
             return jsonify(finalistas[0]), 200
-        
+
         vencedora_final = None
         menor_tempo = float('inf')
 
         for api in finalistas:
             tempo_atual = _TieBreakerService.get_elapsed_time(api['url'])
-            
             if tempo_atual < menor_tempo:
                 menor_tempo = tempo_atual
                 vencedora_final = api
