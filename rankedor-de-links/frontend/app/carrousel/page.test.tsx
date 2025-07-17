@@ -73,6 +73,16 @@ describe('page', () => {
         // Agora, o card "Exemplo 2" deve estar com destaque
         expect(await screen.findByText('Exemplo 2')).toBeInTheDocument();
     });
+    it('exibe o link para visitar o site com a URL correta', async () => {
+        render(<CarrosselPage />);
+
+        const visitLink = await screen.findByRole('link', { name: /visitar site/i });
+
+        expect(visitLink).toBeInTheDocument();
+        expect(visitLink).toHaveAttribute('href', 'https://exemplo1.com');
+        expect(visitLink).toHaveAttribute('target', 'blank');
+        expect(visitLink).toHaveAttribute('rel', 'noopener noreferrer');
+    });
 
 
 });
