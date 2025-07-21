@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch, Mock
+import requests
 from backend.service import LinkService
 
 class TestLinkService(unittest.TestCase):
@@ -19,13 +20,22 @@ class TestLinkService(unittest.TestCase):
             'X-RateLimit-Limit': '100',
         }
         mock_response.json.return_value = {"a": 1, "b": 2, "c": 3}
-
         mock_get.return_value = mock_response
-
         resultado = LinkService.avaliar_link('https://example.com', tentativas=1)
-      
+
         self.assertIn("rating", resultado)
         self.assertIn("criteria", resultado)
         self.assertEqual(resultado["criteria"]["security"], 10)
         self.assertEqual(resultado["criteria"]["usability"], 10)
         self.assertEqual(resultado["criteria"]["reliability"], 10)
+
+    @patch('backend.service.requests.get')
+    def test_avaliar_link_timeout(self, mock_get):
+        mock_get.side_effect = requests.Timeout()
+
+        resultado = LinkService.avaliar_link('https://example.com', tentativas=1)
+
+        self.assertIn("rating", resultado)
+        self.assertIn("criteria", resultado)
+        self.assertLess(resultado["criteria"]["timeouts"], 10)
+        self.assertEqual(resultado["criteria"]["reliability"], 0)
