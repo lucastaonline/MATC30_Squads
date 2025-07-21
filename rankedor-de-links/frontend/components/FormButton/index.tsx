@@ -1,9 +1,11 @@
 import React from "react"
 
+// Interface opcional para receber uma função onClick
 interface Props {
     onClick?: () => void
 }
 
+// Componente de botão estilizado com Tailwind CSS
 export default function FormButton({ onClick }: Props) {
     return (
         <button
