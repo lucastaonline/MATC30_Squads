@@ -4,7 +4,7 @@ from backend.service import LinkService
 
 class TestLinkService(unittest.TestCase):
     
-    @patch('service.requests.get')
+    @patch('backend.service.requests.get')
     def test_avaliar_link_com_sucesso(self, mock_get):
         # ARRANGE
         mock_response = Mock()
@@ -33,7 +33,7 @@ class TestLinkService(unittest.TestCase):
         self.assertGreaterEqual(resultado["rating"], 0)
         self.assertLessEqual(resultado["rating"], 10)
 
-    @patch('service.requests.get')
+    @patch('backend.service.requests.get')
     def test_avaliar_link_timeout(self, mock_get):
         # ARRANGE
         mock_get.side_effect = Exception("Timeout")
