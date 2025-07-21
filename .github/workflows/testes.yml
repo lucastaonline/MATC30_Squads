@@ -1,0 +1,30 @@
+name: Python Testes
+
+on:
+  push:
+    branches: [ master, feat/testes-linkservice ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Instalar dependências
+      run: |
+        pip install requests
+
+    - name: Rodar testes
+      run: |
+        PYTHONPATH=. python -m unittest discover backend/tests
+
+
+
