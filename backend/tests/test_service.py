@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, Mock
-from backend.service import LinkService
+from service import LinkService
 
 class TestLinkService(unittest.TestCase):
     
