@@ -24,6 +24,7 @@ jobs:
 
     - name: Rodar testes
       run: |
-        PYTHONPATH=./backend python -m unittest discover backend/tests
+        PYTHONPATH=. python -m unittest discover backend/tests
+
 
 
