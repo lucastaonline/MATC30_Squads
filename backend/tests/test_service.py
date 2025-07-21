@@ -45,5 +45,5 @@ class TestLinkService(unittest.TestCase):
         self.assertEqual(resultado["criteria"]["timeouts"], 0)
         self.assertLess(resultado["rating"], 5)
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == '__master__':
+    unittest.master()
