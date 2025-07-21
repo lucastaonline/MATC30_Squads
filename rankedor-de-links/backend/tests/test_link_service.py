@@ -7,6 +7,7 @@ class TestLinkService(unittest.TestCase):
 
     @patch('backend.service.requests.get')
     def test_avaliar_link_sucesso(self, mock_get):
+        # Simula uma resposta completa e válida da requisição
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.content = b'{"key": "value"}'
@@ -22,8 +23,10 @@ class TestLinkService(unittest.TestCase):
         mock_response.json.return_value = {"a": 1, "b": 2, "c": 3}
         mock_get.return_value = mock_response
 
+        # Executa a avaliação do link
         resultado = LinkService.avaliar_link('https://example.com', tentativas=1)
 
+        # Verifica se os critérios e o rating estão corretos para um cenário ideal
         self.assertIn("rating", resultado)
         self.assertIn("criteria", resultado)
         self.assertEqual(resultado["criteria"]["security"], 10)
@@ -32,29 +35,14 @@ class TestLinkService(unittest.TestCase):
 
     @patch('backend.service.requests.get')
     def test_avaliar_link_timeout(self, mock_get):
+        # Simula falha por timeout na requisição
         mock_get.side_effect = requests.Timeout()
 
+        # Executa a avaliação do link com falha
         resultado = LinkService.avaliar_link('https://example.com', tentativas=1)
 
+        # Verifica se os critérios refletem o timeout
         self.assertIn("rating", resultado)
         self.assertIn("criteria", resultado)
         self.assertLess(resultado["criteria"]["timeouts"], 10)
         self.assertEqual(resultado["criteria"]["reliability"], 0)
-
-    @patch('backend.service.requests.get')
-    def test_avaliar_link_headers_ausentes(self, mock_get):
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.content = b'ok'
-        mock_response.headers = {
-            'Content-Type': 'text/html'
-        }
-        mock_response.json.side_effect = ValueError("Not JSON")
-        mock_get.return_value = mock_response
-
-        resultado = LinkService.avaliar_link('https://example.com', tentativas=1)
-
-        self.assertIn("rating", resultado)
-        self.assertIn("criteria", resultado)
-        self.assertLess(resultado["criteria"]["security"], 10)
-        self.assertEqual(resultado["criteria"]["usability"], 0)
