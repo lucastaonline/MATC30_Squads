@@ -22,78 +22,25 @@ export interface RankedLink {
     rank: number;
 }
 
-import links from '@/links.json';
+
+const API_URL = import.meta.env; // alterar endereço do env
+
+type SortOrder = 'ASC' | 'DESC';
 
 class LinksService {
-    retrieveLinks(): RankedLink[] {
-        return links.map((link: RankedLink) => ({
-            ...link,
-            criteria: {
-                ...link.criteria,
-                performance: this.calculatePerformance(link),
-                design: this.calculateDesign(link),
-                usability: this.calculateUsability(link),
-                security: this.calculateSecurity(link),
-                seo: this.calculateSeo(link),
-                content: this.calculateContent(link),
-                accessibility: this.calculateAccessibility(link),
-                responsiveness: this.calculateResponsiveness(link),
-                reliability: this.calculateReliability(link),
-                support: this.calculateSupport(link),
-                integration: this.calculateIntegration(link),
-                scalability: this.calculateScalability(link),
-                customization: this.calculateCustomization(link),
-                analytics: this.calculateAnalytics(link),
-                cost: this.calculateCost(link),
-            },
-        }));
+    // Consulta rota padrão com todos os links (sem ordenação)
+    async getTopLinks(): Promise<RankedLink[]> {
+        const response = await fetch(`${API_URL}/top-api`);
+        if (!response.ok) throw new Error('Erro ao buscar top links');
+        return await response.json();
     }
 
-    calculatePerformance(link: RankedLink): number {
-        return 0;
-    }
-    calculateDesign(link: RankedLink): number {
-        return 0;
-    }
-    calculateUsability(link: RankedLink): number {
-        return 0;
-    }
-    calculateSecurity(link: RankedLink): number {
-        return 0;
-    }
-    calculateSeo(link: RankedLink): number {
-        return 0;
-    }
-    calculateContent(link: RankedLink): number {
-        return 0;
-    }
-    calculateAccessibility(link: RankedLink): number {
-        return 0;
-    }
-    calculateResponsiveness(link: RankedLink): number {
-        return 0;
-    }
-    calculateReliability(link: RankedLink): number {
-        return 0;
-    }
-    calculateSupport(link: RankedLink): number {
-        return 0;
-    }
-    calculateIntegration(link: RankedLink): number {
-        return 0;
-    }
-    calculateScalability(link: RankedLink): number {
-        return 0;
-    }
-    calculateCustomization(link: RankedLink): number {
-        return 0;
-    }
-    calculateAnalytics(link: RankedLink): number {
-        return 0;
-    }
-    calculateCost(link: RankedLink): number {
-        return 0;
+    // Consulta a rota que ordena os links, passando ASC/DESC como query
+    async getOrderedLinks(order: SortOrder = 'DESC'): Promise<RankedLink[]> {
+        const response = await fetch(`${API_URL}/api-orders?order=${order}`);
+        if (!response.ok) throw new Error('Erro ao buscar links ordenados');
+        return await response.json();
     }
 }
 
-export { LinksService };
+export const linksService = new LinksService();
