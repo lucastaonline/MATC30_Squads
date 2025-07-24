@@ -81,6 +81,24 @@ describe('Chart Tests', () => {
             expect(screen.getByText(criterion)).toBeInTheDocument();
         });
     });
+
+     it('renderiza os elementos gráficos corretamente', () => {
+        render(<Charts />);
+
+        //número de gráficos
+        const svgElements =  document.querySelectorAll('svg.css-1xcpicg-MuiChartsSurface-root');
+        expect(svgElements.length).toBe(8);
+
+        //tipos de gráficos (MUI)
+        const barElements = document.querySelectorAll('.MuiBarElement-root');
+        const lineElements = document.querySelectorAll('.MuiLineElement-root');
+        const scatterElements = document.querySelectorAll('.MuiMarkElement-root');
+        expect(barElements.length).toBeGreaterThan(0);
+        expect(lineElements.length).toBeGreaterThan(0);
+        expect(scatterElements.length).toBeGreaterThan(0);
+
+
+     });
 });
 
 
