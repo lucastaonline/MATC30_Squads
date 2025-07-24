@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import CarrosselPage from './CarrosselPage';
 import userEvent from '@testing-library/user-event';
 
-jest.mock('../../services/links-service', () => ({
+jest.mock('@services/links-service', () => ({
     LinksService: jest.fn().mockImplementation(() => ({
         retrieveLinks: () => [
             {

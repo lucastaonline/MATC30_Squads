@@ -63,23 +63,11 @@ describe('Chart Tests', () => {
     it('renderiza os dados corretamente', () => {
         render(<Charts />);
 
-        //nomes dos sites
-        const siteNames = [
-            'Site A',
-            'Site B'
-        ];
-        siteNames.forEach(names => {
-            expect(screen.getByText(names)).toBeInTheDocument();
-        });
-
-        //ranks formatados
-        const ranks = [
-            '#1',
-            '#2'
-        ];
-        ranks.forEach(rank => {
-            expect(screen.getByText(rank)).toBeInTheDocument();
-        });
+        //nomes e ranks por múltiplas ocorrências
+        expect(screen.getAllByText('Site A').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('Site B').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('#1').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('#2').length).toBeGreaterThan(0);
 
         //critérios
         const criteria = [
@@ -92,9 +80,7 @@ describe('Chart Tests', () => {
         criteria.forEach(criterion => {
             expect(screen.getByText(criterion)).toBeInTheDocument();
         });
-
-    })
-
+    });
 });
 
 
