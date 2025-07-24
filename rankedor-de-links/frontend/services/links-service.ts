@@ -25,29 +25,45 @@ export interface RankedLink {
 import links from '@/links.json';
 
 class LinksService {
-    retrieveLinks(): RankedLink[] {
-        return links.map((link: RankedLink) => ({
+
+    retrieveLinks(orderBy?: keyof RankedLink['criteria'], direction: 'asc' | 'desc' = 'asc'): RankedLink[] {
+        const rankedLinks = links.map((link: RankedLink) => ({
             ...link,
             criteria: {
-                ...link.criteria,
-                performance: this.calculatePerformance(link),
-                design: this.calculateDesign(link),
-                usability: this.calculateUsability(link),
-                security: this.calculateSecurity(link),
-                seo: this.calculateSeo(link),
-                content: this.calculateContent(link),
-                accessibility: this.calculateAccessibility(link),
-                responsiveness: this.calculateResponsiveness(link),
-                reliability: this.calculateReliability(link),
-                support: this.calculateSupport(link),
-                integration: this.calculateIntegration(link),
-                scalability: this.calculateScalability(link),
-                customization: this.calculateCustomization(link),
-                analytics: this.calculateAnalytics(link),
-                cost: this.calculateCost(link),
+            ...link.criteria,
+            performance: this.calculatePerformance(link),
+            design: this.calculateDesign(link),
+            usability: this.calculateUsability(link),
+            security: this.calculateSecurity(link),
+            seo: this.calculateSeo(link),
+            content: this.calculateContent(link),
+            accessibility: this.calculateAccessibility(link),
+            responsiveness: this.calculateResponsiveness(link),
+            reliability: this.calculateReliability(link),
+            support: this.calculateSupport(link),
+            integration: this.calculateIntegration(link),
+            scalability: this.calculateScalability(link),
+            customization: this.calculateCustomization(link),
+            analytics: this.calculateAnalytics(link),
+            cost: this.calculateCost(link),
             },
         }));
+
+        if (orderBy) {
+            return rankedLinks.sort((a, b) => {
+            const valA = a.criteria[orderBy];
+            const valB = b.criteria[orderBy];
+
+            if (valA < valB) return direction === 'asc' ? -1 : 1;
+            if (valA > valB) return direction === 'asc' ? 1 : -1;
+            return 0;
+            });
+        }
+
+        return rankedLinks;
     }
+
+    
 
     calculatePerformance(link: RankedLink): number {
         return 0;
