@@ -60,6 +60,41 @@ describe('Chart Tests', () => {
         });
     });
 
+    it('renderiza os dados corretamente', () => {
+        render(<Charts />);
+
+        //nomes dos sites
+        const siteNames = [
+            'Site A',
+            'Site B'
+        ];
+        siteNames.forEach(names => {
+            expect(screen.getByText(names)).toBeInTheDocument();
+        });
+
+        //ranks formatados
+        const ranks = [
+            '#1',
+            '#2'
+        ];
+        ranks.forEach(rank => {
+            expect(screen.getByText(rank)).toBeInTheDocument();
+        });
+
+        //critérios
+        const criteria = [
+            'Performance',
+            'Design',
+            'Usability',
+            'Security',
+            'SEO'
+        ];
+        criteria.forEach(criterion => {
+            expect(screen.getByText(criterion)).toBeInTheDocument();
+        });
+
+    })
+
 });
 
 
