@@ -121,6 +121,55 @@ describe('Chart Tests', () => {
             });
         });
     });
+
+    it('componente funciona com array vazio', () => {
+        (LinksService as jest.Mock).mockImplementationOnce(() => ({
+            retrieveLinks: () => []
+        }));
+
+        render(<Charts />);
+
+        //títulos são exibidos
+        const titles = [
+            'Top 10 - Ratings',
+            'Critérios Empilhados',
+            'Rating por Rank',
+            'Usabilidade x Rating',
+            'Ranking Geral - Horizontal',
+            'SEO - por Rank',
+            'Segurança x Usabilidade',
+            'Design x Performance'
+        ];
+
+        titles.forEach(title => {
+            expect(screen.getByText(title)).toBeInTheDocument();
+        });
+
+        //dados não são renderizados
+        const page = document.body.textContent || '';
+        
+        const forbiddenData = [
+            'Site A', 
+            'Site B', 
+            '#1', 
+            '#2', 
+            '4.5', // rating do Site A
+            '3.8', // rating do Site B
+        ];
+
+        forbiddenData.forEach(data => {
+            expect(page).not.toContain(data);
+        });
+
+        //gráficos vazios sem dados
+        const dataElements = Array.from(document.querySelectorAll('text, rect, circle, path'))
+            .filter(el => {
+                const content = el.textContent || '';
+                return content.match(/(Site [AB]|#\d|\d\.\d)/);
+            });
+  
+        expect(dataElements.length).toBe(0);
+    });
 });
 
 
