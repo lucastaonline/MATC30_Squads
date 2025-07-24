@@ -63,11 +63,15 @@ describe('Chart Tests', () => {
     it('renderiza os dados corretamente', () => {
         render(<Charts />);
 
-        //nomes e ranks por múltiplas ocorrências
+        //nomes por múltiplas ocorrências
         expect(screen.getAllByText('Site A').length).toBeGreaterThan(0);
         expect(screen.getAllByText('Site B').length).toBeGreaterThan(0);
-        expect(screen.getAllByText('#1').length).toBeGreaterThan(0);
-        expect(screen.getAllByText('#2').length).toBeGreaterThan(0);
+        
+        //ranks
+        const rankElements = screen.getAllByText(/#\d+/);
+        expect(rankElements).toHaveLength(4);
+        expect(rankElements[0]).toHaveTextContent('#1');
+        expect(rankElements[1]).toHaveTextContent('#2');
 
         //critérios
         const criteria = [
@@ -82,7 +86,7 @@ describe('Chart Tests', () => {
         });
     });
 
-     it('renderiza os elementos gráficos corretamente', () => {
+    it('renderiza os elementos gráficos corretamente', () => {
         render(<Charts />);
 
         //número de gráficos
@@ -96,9 +100,27 @@ describe('Chart Tests', () => {
         expect(barElements.length).toBeGreaterThan(0);
         expect(lineElements.length).toBeGreaterThan(0);
         expect(scatterElements.length).toBeGreaterThan(0);
+    });
 
+    it('componente usa propriedades esperadas', () => {
+        render(<Charts />);
+        const linksService = new LinksService();
+        const links = linksService.retrieveLinks();
 
-     });
+        const props = ['rank', 'name', 'rating', 'criteria'];
+        const criteria = ['performance', 'design', 'usability', 'security', 'seo'];
+
+        links.forEach(link => {
+            props.forEach(prop => {
+                expect(link).toHaveProperty(prop);
+            });
+
+            const keys = Object.keys(link.criteria);
+            criteria.forEach(criterion => {
+                expect(keys).toContain(criterion);
+            });
+        });
+    });
 });
 
 
