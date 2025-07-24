@@ -1,8 +1,9 @@
-import {render, screen} from '@testing-library/react';
+import React from 'react';
+import { render, screen } from '@testing-library/react';
 import Charts from './page';
-import { LinksService } from '@/services/links-service';
+import { LinksService } from '../../services/links-service';
 
-jest.mock('@/services/links-service', () => ({
+jest.mock('../../services/links-service', () => ({
     LinksService: jest.fn().mockImplementation(() => ({
         retrieveLinks: () => [
             {
@@ -34,6 +35,32 @@ jest.mock('@/services/links-service', () => ({
         ],
     })),
 }));
+
+describe('Chart Tests', () => {
+    beforeEach(() => {
+        (LinksService as jest.Mock).mockClear();
+    });
+
+    it('renderiza os títulos dos gráficos corretamente', () => {
+        render(<Charts />);
+
+        const titles = [
+            'Top 10 - Ratings',
+            'Critérios Empilhados',
+            'Rating por Rank',
+            'Usabilidade x Rating',
+            'Ranking Geral - Horizontal',
+            'SEO - por Rank',
+            'Segurança x Usabilidade',
+            'Design x Performance'
+        ];
+
+        titles.forEach(title => {
+            expect(screen.getByText(title)).toBeInTheDocument();
+        });
+    });
+
+});
 
 
 
