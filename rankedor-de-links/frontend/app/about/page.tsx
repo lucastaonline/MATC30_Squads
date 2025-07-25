@@ -1,14 +1,10 @@
-import axios from 'axios';
-
 export default function About() {
 
     function Page(){
-        
-       
         return(
             <div >
         <div className="flex text-xl justify-center font-bold pb-15">
-           JUNIOR GOSTOSO
+            Sobre
         </div>
         <div className="pb-40">
             Este aplicativo rankeia a performance de APIs com base nos críterios abaixo:    
