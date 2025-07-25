@@ -30,7 +30,7 @@ export default function EvaluationTable() {
 
   useEffect(() => {
     axios
-      .get("", {
+      .get("http://127.0.0.1:8000/avaliar", {
         params: { url: "https://exemplo.com" },
       })
       .then((response) => {
