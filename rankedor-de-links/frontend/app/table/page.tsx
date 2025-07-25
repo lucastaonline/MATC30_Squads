@@ -29,8 +29,7 @@ export default function EvaluationTable() {
   const [criteria, setCriteria] = useState<CriteriaData | null>(null);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/avaliar", {
+    axios.get("http://127.0.0.1:8000/avaliar", {
         params: { url: "https://exemplo.com" },
       })
       .then((response) => {
