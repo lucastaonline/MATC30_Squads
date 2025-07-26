@@ -1,6 +1,6 @@
 'use client';
-
-import { LinksService } from '@/services/links-service';
+import React from 'react';
+import { LinksService } from '../../services/links-service';
 import { Box, Typography } from '@mui/material';
 import { BarChart, LineChart, ScatterChart } from '@mui/x-charts';
 
